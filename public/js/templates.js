@@ -15,6 +15,18 @@
     var templatizer = {};
 
 
+    // profile.jade compiled template
+    templatizer["profile"] = function tmpl_profile(locals) {
+        var buf = [];
+        var jade_mixins = {};
+        var jade_interp;
+        var locals_for_with = locals || {};
+        (function(user) {
+            buf.push('<div class="col-md-2 col-md-offset-1"><ul class="nav nav-pills nav-stacked"><li role="presentation" class="active"><a href="#navigation-user-data" aria-controls="navigation-user-data" role="tab" data-toggle="tab">Profile Data</a></li><li role="presentation"><a href="#navigation-profile-image" aria-controls="navigation-profile-image" role="tab" data-toggle="tab">Profile Image</a></li></ul></div><div class="col-md-4 col-md-offset-1"><div class="col-md-12"><div class="tab-content"><div id="navigation-user-data" role="tabpanel" class="fade in active tab-pane"><div class="row"><div class="col-md-6 col-md-offset-3"><div class="panel panel-default"><div class="panel-heading"><h4 class="panel-title">User Profile Data</h4></div><div class="panel-body"><h6>' + jade.escape(null == (jade_interp = "Username: " + user.first + " " + user.last) ? "" : jade_interp) + "</h6><h6>" + jade.escape(null == (jade_interp = "Phone: " + user.phone) ? "" : jade_interp) + '</h6></div></div></div></div></div><div id="navigation-profile-image" role="tabpanel" class="fade tab-pane"><div class="row"><div class="col-md-6 col-md-offset-3"><div id="users-uploadbox"><h2>Upload New User Image</h2><span id="users-uploadarea"><label for="users-filebox" style="font-family:Calibri;font-size:18px">Choose an image:</label><input id="users-filebox" type="file" accept="image/*"/><br/><div class="input-group"><input id="users-namebox" type="text" disabled="disabled" class="form-control input-sm"/><span class="input-group-btn"><button id="users-uploadbtn" type="button" disabled="true"' + jade.attr("data-userid", user.id, true, false) + ' class="btn btn-sm btn-success">Upload</button></span></div></span></div></div></div><div class="col-md-2 col-md-offset-1"></div></div></div></div><img id="users-form-image"' + jade.attr("src", user.image ? user.image : "/images/default-user-image.png", true, false) + ' alt="Profile Image" class="img img-responsive"/></div>');
+        }).call(this, "user" in locals_for_with ? locals_for_with.user : typeof user !== "undefined" ? user : undefined);
+        return buf.join("");
+    };
+
     // users.jade compiled template
     templatizer["users"] = function tmpl_users(locals) {
         var buf = [];
@@ -22,9 +34,9 @@
         var jade_interp;
         var locals_for_with = locals || {};
         (function(users) {
-            buf.push('<table class="table table-hover"><thead><tr><th>ID</th><th>First Name</th><th>Last Name</th><th>Phone</th><th>Reg Time</th></tr></thead><tbody>');
+            buf.push('<table class="table table-hover"><thead><tr><th>ID</th><th>First Name</th><th>Last Name</th><th>Phone</th><th>Reg Time</th><th>Email</th></tr></thead><tbody>');
             for (var i = 0; i < users.length; i++) {
-                buf.push("<tr><td>" + jade.escape(null == (jade_interp = users[i].id) ? "" : jade_interp) + "</td><td>" + jade.escape(null == (jade_interp = users[i].first) ? "" : jade_interp) + "</td><td>" + jade.escape(null == (jade_interp = users[i].last) ? "" : jade_interp) + "</td><td>" + jade.escape(null == (jade_interp = users[i].phone) ? "" : jade_interp) + "</td><td>" + jade.escape(null == (jade_interp = users[i].regtime) ? "" : jade_interp) + "</td></tr>");
+                buf.push("<tr><td>" + jade.escape(null == (jade_interp = users[i].id) ? "" : jade_interp) + "</td><td>" + jade.escape(null == (jade_interp = users[i].first) ? "" : jade_interp) + "</td><td>" + jade.escape(null == (jade_interp = users[i].last) ? "" : jade_interp) + "</td><td>" + jade.escape(null == (jade_interp = users[i].phone) ? "" : jade_interp) + "</td><td>" + jade.escape(null == (jade_interp = users[i].regtime) ? "" : jade_interp) + "</td><td>" + jade.escape(null == (jade_interp = users[i].email) ? "" : jade_interp) + "</td></tr>");
             }
             buf.push("</tbody></table>");
         }).call(this, "users" in locals_for_with ? locals_for_with.users : typeof users !== "undefined" ? users : undefined);

@@ -12,7 +12,6 @@ html
             div.container-fluid
                 div.row
                     div.col-md-12(style="margin-top:50px")
-
                         section(data-route='dashboard',style="display:none;")
                             include home/dashboard
                         section(data-route='about',style="display:none;")
@@ -24,7 +23,7 @@ html
                         section(data-route='profile',style="display:none")
                             include home/profile
 
-        input#user-id.hidden(value=id)
+        input#user-id.hidden(value=10)
 
     script(src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js")
     script(src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js")
@@ -38,6 +37,7 @@ html
     script(src="/js/models/about.js")
     script(src="/js/models/dashboard.js")
     script(src="/js/models/users.js")
+    script(src="/js/models/profile.js")
 
     script(src="/js/system/server.js")
     script(src="/js/system/startup.js")

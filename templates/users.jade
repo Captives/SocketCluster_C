@@ -6,6 +6,7 @@ table.table.table-hover
          th Last Name
          th Phone
          th Reg Time
+         th Email
    tbody
       - for(var i=0; i<users.length; i++)
          tr
@@ -14,3 +15,4 @@ table.table.table-hover
             td=users[i].last
             td=users[i].phone
             td=users[i].regtime
+            td=users[i].email

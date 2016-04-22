@@ -23,5 +23,10 @@ nav.navbar.navbar-default.navbar-fixed-top
                   a(href="#/profile") PROFILE
             //导航
             ul.nav.navbar-nav.navbar-right
-               li
-                  a(href="/session/destroy") LOGOUT
+               li.dropdown
+                  a.dropdown-toggle(data-toggle="dropdown",role="button", href="#", aria-expanded="false",aria-haspopup="true") User
+                     span.caret
+                  ul.dropdown-menu
+                     li
+                        a(href="#/profile") Profile
+                        a(href="/session/destroy") LOGOUT

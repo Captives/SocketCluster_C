@@ -93,6 +93,7 @@ module.exports.run = function (worker) {
                     console.log(user.password, password);
                     if (user.password == password) {
                         delete user.password;
+                        delete user.image;
                         req.session.user = user;
                         res.redirect('/');
                     } else {
@@ -128,7 +129,6 @@ module.exports.run = function (worker) {
         console.log("client " + socket.id + " has connected # pid=", process.pid);
         socket.on('messages', function (data) {
             console.log("messages", data);
-            //ModelController[data.route][data.resource](socket, data);
             ModelController[data.route][data.resource](socket, pool, data);
         });
 
