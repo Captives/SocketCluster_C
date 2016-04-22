@@ -1,0 +1,43 @@
+doctype
+html
+    head
+        title="Home Page"
+        link(rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css")
+    body
+        div.loading-page
+            img(src="/img/loading.gif",alt="loading...")
+
+        div.whole-page(style="display:none")
+            include ./navbar
+            div.container-fluid
+                div.row
+                    div.col-md-12(style="margin-top:50px")
+
+                        section(data-route='dashboard',style="display:none;")
+                            include home/dashboard
+                        section(data-route='about',style="display:none;")
+                            include home/about
+                        section(data-route='users',style="display:none;")
+                            include home/users
+                        section(data-route='contact',style="display:none")
+                            h1 联系我们
+                        section(data-route='profile',style="display:none")
+                            include home/profile
+
+        input#user-id.hidden(value=id)
+
+    script(src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js")
+    script(src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js")
+    script(src="/js/libs/socketcluster.js")
+    script(src="/js/libs/director.min.js")
+    script(src="/js/libs/communication.min.js")
+
+    script(src="/js/system/route.js")
+    script(src="/js/templates.js")
+
+    script(src="/js/models/about.js")
+    script(src="/js/models/dashboard.js")
+    script(src="/js/models/users.js")
+
+    script(src="/js/system/server.js")
+    script(src="/js/system/startup.js")

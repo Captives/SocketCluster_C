@@ -1,0 +1,16 @@
+table.table.table-hover
+   thead
+      tr
+         th ID
+         th First Name
+         th Last Name
+         th Phone
+         th Reg Time
+   tbody
+      - for(var i=0; i<users.length; i++)
+         tr
+            td=users[i].id
+            td=users[i].first
+            td=users[i].last
+            td=users[i].phone
+            td=users[i].regtime
