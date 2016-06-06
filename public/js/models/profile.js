@@ -48,7 +48,7 @@ $(function () {
 
         $('#users-uploadbtn').on('click',function (e) {
             if(selectFile && selectFile.name){
-                user_id = $(this).data('userid');
+                var user_id = $(this).data('userid');
                 fileReader = new FileReader();
                 fileReader.user_id = user_id;
                 fileReader.file_name = selectFile.name;
@@ -61,7 +61,9 @@ $(function () {
 
                 oldHTML = $('#users-uploadarea').html();
                 $('#users-uploadarea').html(content);
+
                 fileReader.onload = function (e) {
+                    console.log('上传文件#加载成功',selectFile);
                     notify('server',{
                         route : 'Services',
                         resource : 'upload',
@@ -72,6 +74,22 @@ $(function () {
                     });
                 };
 
+                fileReader.onabort = function (e) {
+                  console.log('----- 读取中断 -----');
+                };
+                fileReader.onerror = function (err) {
+                  console.log('----- error -----',err);
+                };
+                fileReader.onloadstart = function (e) {
+                  console.log('----- load start -----');
+                };
+                fileReader.onprogress = function (e) {
+                  console.log('----- progress -----');
+                };
+                fileReader.onloadend = function (e) {
+                  console.log('----- loadend -----');
+                };
+
                 notify('server', {
                     route : 'Services',
                     resource : 'uploadStart',
@@ -79,6 +97,7 @@ $(function () {
                     name : selectFile.name,
                     data : selectFile.size,
                 });
+                console.log('上传文件#准备上传',selectFile);
             }else{
                 $(this).attr(disabled, true);
             }
@@ -87,6 +106,7 @@ $(function () {
 
     observe('users-upload', function (data) {
         if(data.msg == 'moredata'){
+            console.log('上传文件#上传中....',JSON.stringify(data));
             notify('users-upload-progress', data.percent || 100);
             var place = data.place * size;
             var newFile = null;
@@ -96,12 +116,14 @@ $(function () {
                 newFile = selectFile.slice(place, place + Math.min(size, selectFile.size - place));
             }
         }else if(data.msg == 'uploadingdone'){
+            console.log('上传文件#结束');
             $('#users-uploadarea').html(oldHTML);
             notify('bind-upload');
         }
     });
 
     observe('users-upload-progress', function (percent) {
+        console.log('上传文件#上传中....',percent);
         $('#users-progress-bar').attr('stype', 'width:' + percent + "%");
         $('#users-percent').html(Math.round(percent * 100)/100 + '%');
         var mbDone = Math.round(((percent / 100) * selectFile.size) / 1048576);
@@ -109,6 +131,7 @@ $(function () {
     });
 
     observe('users-upload-create-finish', function (data) {
+        console.log('完成.');
         $("#users-form-image").attr('src',(data.image?data.image:'/images/default-user-image.png'));
     });
 

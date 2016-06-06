@@ -44,7 +44,7 @@ Users.upload = function (socket, pool, pack) {
 
     async.series([
         function(callback){
-            var updateImage = "UPDATE users SET images = LOAD_FILE('" + data.filepaht + "') WHERE id = ?";
+            var updateImage = "UPDATE users SET images = LOAD_FILE('" + data.filepath + "') WHERE id = ?";
             pool.query(updateImage,[data.user_id], function (err, rows) {
                 if(err){
                     console.log(err);

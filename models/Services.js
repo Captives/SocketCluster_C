@@ -41,6 +41,7 @@ Services.uploadStart = function (socket, pool, data) {
                 percent:0,
                 name:name
             });
+            console.log('目录打开成功',JSON.stringify(files[name]));
         }
     });
 
@@ -52,6 +53,7 @@ Services.upload = function (socket, pool, data) {
     files[name].data += data.data;
     if(files[name].downloaded == files[name].size){
         fs.write(files[name].handler, files[name].data,null,'Binary', function (err, written) {
+            console.log('开始写文件',JSON.stringify(files[name]));
             var pack = {
                 user_id : data.user_id,
                 filepath : baseUrl + name,
@@ -64,10 +66,12 @@ Services.upload = function (socket, pool, data) {
                 notify : data.notify,
                 msg : 'uploadingdone'
             });
+            console.log('上传完成',JSON.stringify(files[name]));
         });
     }else if(files[name].data.length > 10485760){ //超过10M限制
         fs.write(files[name].handler, files[name].data, null, 'Binary', function (err, written) {
             files[name].data = '';// 清空缓冲区
+            console.log('文件开始上传',JSON.stringify(files[name]));
             socket.emit('response', {
                 success : 1,
                 notify : data.notify,
@@ -88,6 +92,7 @@ Services.upload = function (socket, pool, data) {
             percent : (files[name].downloaded / files[name].size)*100 || 0,
             name : name
         });
+        console.log('上传中....',JSON.stringify(files[name]));
     }
 };
 
